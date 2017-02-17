@@ -1,26 +1,25 @@
 import * as React from 'react'
+import { observer, inject } from 'mobx-react';
 
-import { todoStore,  ObservableTodoStore} from '../state/todos.state';
-import { TodoList } from './todolist.component';
+import { BlogPostsService } from '../services/blogposts.service';
 
-class App extends React.Component<any, any> {
+import { PostsState, Post } from '../state/posts.state';
+
+import { PostsList } from './posts-list.component';
+
+interface Props {
+    store : PostsState;
+};
+
+@inject("store")
+class App extends React.Component<any, {}> {
     constructor(props: any) {
         super(props);
     }
 
     render() {
-        todoStore.addTodo("read MobX tutorial");
-
-        todoStore.addTodo("try MobX");
-
-        todoStore.todos[0].completed = true;
-
-        todoStore.todos[1].task = "try MobX in own project";
-
-        todoStore.todos[0].task = "grok MobX tutorial";
-
         return (
-            <TodoList />
+            <PostsList postsState={this.props.store.posts}/>
         );
     }
 }

@@ -31,8 +31,14 @@ var config = {
    * in your code.
    */
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.webpack.js', '.web.js'],
     modulesDirectories: ['src', 'node_modules'],
+  },
+
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   },
 
   module: {
@@ -48,6 +54,10 @@ var config = {
         test: /\.tsx?$/,
         loader: "ts-loader",
         exclude: /node_modules/
+      },
+      { 
+        test: /\.json$/, 
+        loader: 'json-loader'
       }
     ]
   },
