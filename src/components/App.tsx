@@ -19,7 +19,7 @@ class App extends React.Component<any, {}> {
 
     render() {
         return (
-            <PostsList postsState={this.props.store.posts}/>
+            <PostsList postsState={this.props.store}/>
         );
     }
 }

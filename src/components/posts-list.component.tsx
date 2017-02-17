@@ -13,7 +13,6 @@ interface Props {
 
 @observer
 class PostsList extends React.Component<Props, {}> {
-    @observable private isLoading : boolean = true;
     constructor(props: any) {
         super(props);
     }
@@ -24,13 +23,10 @@ class PostsList extends React.Component<Props, {}> {
         bps.getPosts().subscribe(
             (data : any) => {
                 if (data.response.statusCode === 200) {
-                    // The assignment to the posts state doesn't cause mobx to force render() to be called, why?
                     this.props.postsState.posts = data.body;
 
-                    // ERR: at runtime this line causes a type error declaring addPost is not a function
-                    // data.body.map((post : Post) => this.props.postsState.addPost(post));
+                    //data.body.map((post : Post) => this.props.postsState.addPost(post));
 
-                    this.isLoading = false;
                 }
             },
             (err : string) => console.error(err) // Show error in console 
@@ -38,12 +34,6 @@ class PostsList extends React.Component<Props, {}> {
     }
 
     render() {
-        if (this.isLoading)
-            return (
-                <div>
-                    Loading....
-                </div>
-            );
 
         const posts =  this.props.postsState.posts.map((post) => {
             return (
